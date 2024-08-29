@@ -16,8 +16,8 @@ export async function GET(req : NextRequest, res : NextRequest) {
             message: "Unauthorized access",
         }, {status: 403});
     }
-    // console.log(session);
-    // console.log("| above is session");
+    // // console.log(session);
+    // // console.log("| above is session");
 
     const userId = session._id;
     // const userId = "66ba4851f1d7eb56aab28674"
@@ -29,8 +29,8 @@ export async function GET(req : NextRequest, res : NextRequest) {
         const userName = searchParams.get('user_name') as string
         
         // TODO : remove userName if not used
-        console.log({ userId, repoName, userName})
-        console.log(session.accessToken)
+        // console.log({ userId, repoName, userName})
+        // console.log(session.accessToken)
 
 
         const bountyIssues = await Bounty.find(
@@ -77,7 +77,7 @@ export async function GET(req : NextRequest, res : NextRequest) {
 
 
     } catch (error) {
-        console.log("Error occured while creating new bounty",error)
+        // console.log("Error occured while creating new bounty",error)
         return NextResponse.json({
             success: false,
             message: "Internal Server Errror"

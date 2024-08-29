@@ -23,7 +23,7 @@ export default function Home() {
           setRepos(response.data.repos);
           setFilteredRepos(response.data.repos); // Initialize filtered repos
         } catch (error) {
-          console.error("Error fetching repositories", error);
+          // console.error("Error fetching repositories", error);
         } finally {
           setLoading(false);
         }

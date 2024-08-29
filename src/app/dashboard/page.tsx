@@ -33,13 +33,13 @@ export default function Address() {
           throw new Error("Cannot fetch issues");
         }
 
-        console.log(response);
+        // console.log(response);
         setIssues(response.data.issues)
         setTotalBountyAmount(response.data.totalAmount);
 
         
       } catch (error) {
-        console.error("Error fetching issues: ", error);
+        // console.error("Error fetching issues: ", error);
       }
       setLoading(false);
     }
@@ -54,11 +54,11 @@ export default function Address() {
       if (!response.data.success) {
         throw new Error("Cannot fetch user balance")
       }
-      console.log("Fetch user balance api response....", response);
+      // console.log("Fetch user balance api response....", response);
       
       setUserBalance(response.data.userBalance);
     } catch (error) {
-      console.log("Error occured while fetching user Balance", error);
+      // console.log("Error occured while fetching user Balance", error);
     }
   }
 
@@ -131,7 +131,7 @@ function CardSpotlightDemo({issues, totalBountyAmount, userBalance, fetchUserBal
       const response = await axios.post("/api/process-payout", {
         publicKey: publicKey
       });
-      console.log(response.data);
+      // console.log(response.data);
 
 
       if (!response?.data.success) {
@@ -149,7 +149,7 @@ function CardSpotlightDemo({issues, totalBountyAmount, userBalance, fetchUserBal
 
 
     } catch (error) {
-      console.log("An error occured while processing payout");
+      // console.log("An error occured while processing payout");
       toastId.dismiss();
       toast({
         variant: "destructive",
@@ -282,7 +282,7 @@ function BountyIssuesSection({setIssues, issues, setLoading, setTotalBountyAmoun
         title: "Bounty deleted successfully",
         description: "Bounty deleted successfully",
       })
-      console.log(response.data);
+      // console.log(response.data);
       setIssues(response?.data?.issues)
       setTotalBountyAmount(response?.data?.totalBountyAmount || "0");
     } catch (error) {
@@ -292,7 +292,7 @@ function BountyIssuesSection({setIssues, issues, setLoading, setTotalBountyAmoun
         title: "Error occured while deleting bounty",
         description: "An error occured while deleting bounty",
       })
-      console.log("An error occured while deleting bounty", error);
+      // console.log("An error occured while deleting bounty", error);
     }
     setDeletingBounty(false);
 
@@ -313,7 +313,7 @@ function BountyIssuesSection({setIssues, issues, setLoading, setTotalBountyAmoun
   //     return ;
     
   // //   async function populateIssues() {
-  // //     console.log(issues);
+  // //     // console.log(issues);
   // //     issues.forEach(async(issue, index) => {
   // //       if (session?.accessToken) {
   // //         try {
@@ -325,15 +325,15 @@ function BountyIssuesSection({setIssues, issues, setLoading, setTotalBountyAmoun
   // //           issues[index].title = response.data.title;
   // //           issues[index].body = response.data.body;
   
-  // //           console.log(response.data);
+  // //           // console.log(response.data);
   // //         } catch (error) {
-  // //           console.error("Error fetching repositories", error);
+  // //           // console.error("Error fetching repositories", error);
   // //         }
   // //       }
   // //     })
   // //   }
   // //   populateIssues();
-  // //   console.log(issues);
+  // //   // console.log(issues);
   // // }, [issues])
 
 

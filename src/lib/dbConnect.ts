@@ -9,7 +9,7 @@ const connection: ConnectionObject = {}  // an object wiht type connection is cr
 
 async function dbConnect() : Promise<void> {
     if(connection.isConnected){
-        console.log("Already Connected to Database")
+        // console.log("Already Connected to Database")
         return
     }
 
@@ -18,9 +18,9 @@ async function dbConnect() : Promise<void> {
         
         connection.isConnected = db.connections[0].readyState    // connections is an array that is returned and its first value gives us the readyState
 
-        console.log("Connected to Database is Success")
+        // console.log("Connected to Database is Success")
     } catch (error) {
-        console.log("Database not connected")
+        // console.log("Database not connected")
         process.exit(1)
     }
     

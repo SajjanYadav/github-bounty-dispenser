@@ -20,7 +20,7 @@ export default function BountiesPage() {
                     setBounties(response.data.bounties);
                 }
             } catch (error) {
-                console.error("Error fetching bounties:", error);
+                // console.error("Error fetching bounties:", error);
             } finally {
                 setLoading(false);
             }
