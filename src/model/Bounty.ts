@@ -1,12 +1,19 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { User } from "./User"; 
 
+
+
 export interface Bounty extends Document {
     amount: string;
-    github_repo: string;
-    github_issue: string;
+    repo_name: string;
+    issue_number: string;
     created_by: User;
     created_at: Date;
+    title: string,
+    body: string,
+    signature: string,
+    publicKey: string,
+    status: string
 }
 
 const BountySchema: Schema<Bounty> = new Schema({
@@ -14,11 +21,11 @@ const BountySchema: Schema<Bounty> = new Schema({
         type: String,
         required: true,
     },
-    github_repo: {
+    repo_name: {
         type: String,
         required: true,
     },
-    github_issue: {
+    issue_number: {
         type: String,
         required: true,
     },
@@ -31,6 +38,26 @@ const BountySchema: Schema<Bounty> = new Schema({
         type: Date,
         default: Date.now,
     },
+    title: {
+        type: String,
+        required: true,
+    },
+    body: {
+        type: String,
+    },
+    signature: {
+        type: String,
+        required: true,
+    },
+    publicKey: {
+        type: String,
+        required: true,
+    },
+    status: {
+        type:String,
+        enum: ["open", "closed"],
+        default: "open",
+    }
 });
 
 const Bounty = mongoose.models.Bounty || mongoose.model<Bounty>("Bounty", BountySchema);

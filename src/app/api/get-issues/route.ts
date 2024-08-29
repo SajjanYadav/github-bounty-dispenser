@@ -1,74 +1,59 @@
 import dbConnect from "@/lib/dbConnect";
 import Bounty from "@/model/Bounty";
-import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
-import mongoose from "mongoose";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { authOptions } from "../auth/[...nextauth]/options";
 
-export async function GET(req : NextRequest, res : NextRequest) {
+export async function GET(req: NextRequest, res: NextRequest) {
 
-    // const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
 
-    // if (!session || !session.user) {
-    //     return NextResponse.json({
-    //         success: false,
-    //         message: "Unauthorized access",
-    //     }, {status: 403});
-    // }
+    if (!session || !session.user) {
+        return NextResponse.json({
+            success: false,
+            message: "Unauthorized access",
+        }, { status: 403 });
+    }
 
-    // const userId = session._id;
-
+    const userId = session._id;
 
     try {
         await dbConnect();
 
-        const { searchParams } = new URL(req.url);
+        console.log({ userId });
 
-        const github_repo = searchParams.get('github_repo');
-        const userId = searchParams.get('createdBy');
+        const issues = await Bounty.find({
+            created_by: userId,
+        });
 
-
-        if (!github_repo  || !userId) {
-            console.log(github_repo, userId);
+        if (!issues || issues.length === 0) {
             return NextResponse.json({
                 success: false,
-                message: "Missing required fields",
-            }, { status: 400 });
+                message: "No issues found",
+            }, { status: 404 });
         }
 
-        console.log({github_repo, userId})
+        // Summing up the bounty amounts in SOL
+        let totalBountyAmount = issues.reduce((acc, issue) => {
+            let amountInSOL = Number(issue.amount) / LAMPORTS_PER_SOL;
+            return acc + (isNaN(amountInSOL) ? 0 : amountInSOL);
+        }, 0);
 
-
-        const issues = await Bounty.find(
-            {
-                github_repo: github_repo,
-                created_by : new mongoose.Types.ObjectId(userId),
-            },
-            
-        )
-
-        console.log(issues);
-
-        if (!issues) {
-            return NextResponse.json({
-                success: false,
-                message: "No issues for this repo present"
-            }, {status : 401})
-        }
+        console.log(totalBountyAmount);
 
         return NextResponse.json({
             success: true,
-            message: "Issues fetched successfully", 
+            message: "Issues with bounties fetched successfully",
+            totalAmount: totalBountyAmount,
             issues: issues,
-        }, {status : 200})
-
+        }, { status: 200 });
 
     } catch (error) {
-        console.log("Error occured while creating new bounty",error)
+        console.log("Error occurred while fetching issues:", error);
         return NextResponse.json({
             success: false,
-            message: "Internal Server Errror"
-        }, {status : 500})
+            message: "Internal Server Error",
+        }, { status: 500 });
     }
 }

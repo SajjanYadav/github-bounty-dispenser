@@ -4,6 +4,9 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { Vortex } from "@/components/ui/vortex";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import PrimaryButton from "@/components/PrimaryButton";
+import { CircleDollarSignIcon } from "lucide-react";
 
 const Page = () => {
   const { data: session } = useSession();
@@ -11,12 +14,12 @@ const Page = () => {
 
   useEffect(() => {
     if (session && router) {
-      router.push("/dashboard/repos");
+      router.push("/dashboard");
     }
   }, [session, router]);
 
   return (
-    <div className="w-full h-screen overflow-hidden overflow-y-hidden">
+    <div className="w-full h-screen overflow-hidden">
       <Vortex
         backgroundColor="black"
         rangeY={800}
@@ -26,20 +29,27 @@ const Page = () => {
       >
         <div className="flex flex-col items-center text-center">
           <h1 className="text-white text-4xl md:text-6xl font-bold mb-4">
-            Github Bounty Dispenser
+            Strange
           </h1>
           <p className="text-white text-xl md:text-2xl max-w-lg mb-6">
-            Welcome to the Github Bounty Dispenser! This platform helps you dispense bounties to those who solve your issues on Github.
+            Welcome to the Strange Bounty Dispenser! This platform helps you dispense bounties to those who solve your issues on Github.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <button
-              onClick={() => signIn("github")} 
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
-              Sign In
+            <PrimaryButton/>
+            <button 
+              onClick={() => router.push("/bounties")}
+              type="button" 
+              className="flex gap-x-2 items-center text-gray-900  bg-white border border-gray-300 focus:outline-none
+              hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg px-5 py-2.5 
+                dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 
+              dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                <CircleDollarSignIcon
+                  size={28}
+                />
+                
+                <span className="text-lg">Available Bounties</span>
             </button>
-            <button className="px-4 py-2 bg-gray-600 hover:bg-gray-700 transition duration-200 rounded-lg text-white">
-              Watch trailer
-            </button>
+            
           </div>
         </div>
       </Vortex>

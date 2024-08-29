@@ -1,46 +1,53 @@
 import dbConnect from "@/lib/dbConnect";
 import Bounty from "@/model/Bounty";
-import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
-import mongoose from "mongoose";
+import { Connection } from "@solana/web3.js";
+import { authOptions } from "../auth/[...nextauth]/options";
 
 export async function POST(req : Request, res : NextRequest) {
 
-    // const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
 
-    // if (!session || !session.user) {
-    //     return NextResponse.json({
-    //         success: false,
-    //         message: "Unauthorized access",
-    //     }, {status: 403});
-    // }
+    if (!session || !session.user) {
+        return NextResponse.json({
+            success: false,
+            message: "Unauthorized access",
+        }, {status: 403});
+    }
 
-    // const userId = session._id;
+    const userId = session._id;
+    // console.log(session);
 
 
     try {
         await dbConnect();
 
-        const {github_repo, github_issue, amount, created_by} : 
+        const {repo_name, issue_number, amount, signature, title, body, publicKey} : 
             {
-                github_repo : string, 
-                github_issue: string, 
+                repo_name : string, 
+                issue_number: string, 
                 amount : string,
-                created_by : string
+                signature: string,
+                title: string,
+                body: string,
+                publicKey: string
             } = await req.json();
 
-        if (!github_repo || !github_issue || !amount || !created_by) {
+        if (!repo_name || !issue_number || !amount  || !signature || !title || !publicKey) {
             return NextResponse.json({
                 success: false,
                 message: "Missing required fields",
             }, { status: 400 });
         }
 
-        console.log({github_repo, github_issue, amount, created_by})
+        // console.log({repo_name, issue_number, amount, signature, publicKey})
 
-        const existingBounty = await Bounty.findOne({github_repo, github_issue, amount, created_by});
+        const existingBounty = await Bounty.findOne({
+            repo_name, 
+            issue_number, 
+            created_by: userId
+        });
         console.log(existingBounty);
 
         if(existingBounty){
@@ -50,13 +57,48 @@ export async function POST(req : Request, res : NextRequest) {
             }, {status : 401})
         }
 
+
+        const connection = new Connection(process.env.CONNECTION_URL as string, {
+            commitment: 'confirmed'
+        });
+        
+       
+
+        // await connection.confirmTransaction({ blockhash, lastValidBlockHeight, signature });
+
+        const transaction = await connection.getTransaction(signature, {
+            maxSupportedTransactionVersion: 1, 
+        } );
+       
+
+
+        if ((transaction?.meta?.postBalances[1] ?? 0) - (transaction?.meta?.preBalances[1] ?? 0) !== Number(amount)) {
+            return NextResponse.json({
+                success: false,
+                message: "Transaction signature/amount incorrect"
+            })
+        }
+
+        if (transaction?.transaction.message.getAccountKeys().get(1)?.toString() !== process.env.PARENT_WALLET_ADDRESS) {
+            return NextResponse.json({
+                success: false,
+                message: "Transaction sent to wrong address"
+            })
+
+        }
+
         const newBounty = await Bounty.create({
             amount: amount,
-            github_repo : github_repo,
-            github_issue: github_issue, 
-            created_by: new mongoose.Types.ObjectId(created_by),
+            repo_name : repo_name,
+            issue_number: issue_number, 
+            created_by: userId,
             created_at: Date.now(),
+            title: title,
+            body: body,
+            signature: signature,
+            publicKey: publicKey
         })
+        
 
         if (!newBounty) {
             return NextResponse.json({
@@ -68,7 +110,7 @@ export async function POST(req : Request, res : NextRequest) {
         return NextResponse.json({
             success: true,
             message: "Bounty created successfully", 
-            bounty : newBounty,
+            bounty : "newBounty",
         }, {status : 200})
 
 
