@@ -29,10 +29,10 @@ const Page = () => {
       >
         <div className="flex flex-col items-center text-center">
           <h1 className="text-white text-4xl md:text-6xl font-bold mb-4">
-            Strange
+            Bounty Dispenser
           </h1>
           <p className="text-white text-xl md:text-2xl max-w-lg mb-6">
-            Welcome to the Strange Bounty Dispenser! This platform helps you dispense bounties to those who solve your issues on Github.
+            Welcome to the Bounty Dispenser! This platform helps you dispense bounties to those who solve your issues on Github.
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <PrimaryButton/>

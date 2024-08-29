@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Bounty Dispenser",
-  description: "An aap to dispense bounties",
+  description: "A dynamic Next.js app enabling GitHub bounty management with secure Solana payments, intuitive UI, and real-time issue tracking.",
 };
 
 export default function RootLayout({
