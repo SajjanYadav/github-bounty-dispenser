@@ -1,17 +1,17 @@
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Provider } from "./provider";
-import AppBar from "../components/AppBar";
+import AppBar from "@/components/AppBar";
 import AppWalletProvider from "@/components/AppWalletProvider";
 import { Toaster } from "@/components/ui/toaster";
+import { Provider } from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Bounty Dispenser",
   description: "A dynamic Next.js app enabling GitHub bounty management with secure Solana payments, intuitive UI, and real-time issue tracking.",
+  icons: "/favicon1.ico",
 };
 
 export default function RootLayout({
@@ -23,7 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon1.ico" type="image/jpg"/>
+        <link rel="icon" href="/favicon1.ico" type="image/jpg" />
+        <meta property="og:image" content="/image.png" />
+        <meta property="og:url" content="https://bounty-dispenser.vercel.app" />
+        <meta property="og:type" content="website" />
       </head>
       <body className={inter.className}>
         <Provider>
