@@ -1,40 +1,107 @@
-# GitHub Bounty Dispenser
+# Bounty Management Platform
 
-Welcome to the GitHub Bounty Dispenser project! This project aims to provide a platform for managing and distributing bounties on GitHub. With our interactive web application, you can easily create, track, and reward bounties for open source contributions.
+A decentralized bounty management platform built on the Solana blockchain, allowing users to create, manage, and delete bounties associated with GitHub issues.
 
 ## Features
 
-- Create bounties for specific issues or feature requests.
-- Set the reward amount for each bounty.
-- Track the progress of bounties and see who is working on them.
-- Easily distribute rewards to contributors once the bounty is completed.
-- Seamless integration with GitHub for easy issue management.
+- **User Authentication**: Secure user authentication using NextAuth.js.
+- **Solana Blockchain Integration**: Transfer bounties using Solana's blockchain.
+- **GitHub Integration**: Link bounties to GitHub issues and manage them seamlessly.
+- **Responsive UI**: A user-friendly interface built with React and TailwindCSS.
+
+## Technologies Used
+
+- **Frontend**: Next.js, React, TailwindCSS
+- **Backend**: Next.js API routes, Mongoose
+- **Blockchain**: Solana Web3.js
+- **Authentication**: NextAuth.js
+- **Database**: MongoDB
 
 ## Getting Started
 
-To get started with the GitHub Bounty Dispenser, follow these steps:
+### Prerequisites
 
-1. Clone the repository to your local machine.
-2. Install the necessary dependencies by running `npm install`.
-3. Configure your GitHub access token in the `.env` file.
-4. Start the development server by running `npm start`.
-5. Open your browser and navigate to `http://localhost:3000` to access the application.
+- Node.js (v14 or later)
+- npm or yarn
+- MongoDB instance
+- Solana CLI and wallet
+- GitHub OAuth app for authentication
 
-## Hosting on Vercel
+### Installation
 
-To host the GitHub Bounty Dispenser project on Vercel, follow these steps:
+1. **Clone the repository**:
 
-1. Sign up for a Vercel account at [vercel.com](https://vercel.com).
-2. Install the Vercel CLI by running `npm install -g vercel`.
-3. Run `vercel login` to authenticate with your Vercel account.
-4. In the project directory, run `vercel` to deploy the application.
-5. Follow the prompts to configure your deployment settings.
-6. Once the deployment is complete, you will receive a unique URL for your hosted application.
+    ```bash
+    git clone https://github.com/yourusername/yourrepository.git
+    cd yourrepository
+    ```
+
+2. **Install dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+3. **Set up environment variables**:
+
+    Create a `.env.local` file in the root directory and add the following variables:
+
+    ```env
+    MONGODB_URI=your_mongodb_uri
+    NEXTAUTH_URL=http://localhost:3000
+    NEXTAUTH_SECRET=your_nextauth_secret
+    GITHUB_CLIENT_ID=your_github_client_id
+    GITHUB_CLIENT_SECRET=your_github_client_secret
+    PARENT_WALLET_PRIVATE_KEY=your_solana_wallet_private_key
+    ```
+
+4. **Run the development server**:
+
+    ```bash
+    npm run dev
+    ```
+
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Usage
+
+1. **Authenticate**: Log in with your GitHub account.
+2. **Create a Bounty**: Link a GitHub issue and set a bounty amount.
+3. **Manage Bounties**: View, update, or delete bounties associated with your GitHub issues.
+4. **Receive Bounties**: Transfer bounties back to your wallet or to another user.
+
+## API Endpoints
+
+- `POST /api/create-bounty`: Create a new bounty.
+- `POST /api/remove-bounty`: Remove an existing bounty.
+- `GET /api/get-issues`: Fetch all issues associated with bounties.
+- `GET /api/get-merged-pull-requests`: Fetch merged pull requests from a repository.
 
 ## Contributing
 
-We welcome contributions from the open source community! If you would like to contribute to the GitHub Bounty Dispenser project, please follow our [contribution guidelines](CONTRIBUTING.md).
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a pull request.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Acknowledgements
+
+- [Solana](https://solana.com)
+- [Next.js](https://nextjs.org)
+- [TailwindCSS](https://tailwindcss.com)
+- [Mongoose](https://mongoosejs.com)
+- [NextAuth.js](https://next-auth.js.org)
+
+## Contact
+
+Your Name - [sajjan28yadav@example.com](mailto:sajjan28yadav@example.com)
+
+Project Link: [https://github.com/SajjanYadav/yourrepository](https://github.com/SajjanYadav/yourrepository)
