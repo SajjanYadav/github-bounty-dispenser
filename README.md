@@ -32,7 +32,7 @@ A decentralized bounty management platform built on the Solana blockchain, allow
 1. **Clone the repository**:
 
     ```bash
-    git clone https://github.com/yourusername/yourrepository.git
+    git clone https://github.com/SajjanYadav/github-bounty-dispenser.git
     cd yourrepository
     ```
 
@@ -104,4 +104,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Your Name - [sajjan28yadav@example.com](mailto:sajjan28yadav@example.com)
 
-Project Link: [https://github.com/SajjanYadav/yourrepository](https://github.com/SajjanYadav/yourrepository)
+Project Link: [https://github.com/SajjanYadav/github-bounty-dispenser](Github Bounty Dispenser)
