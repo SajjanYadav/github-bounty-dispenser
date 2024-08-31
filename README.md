@@ -73,9 +73,11 @@ A decentralized bounty management platform built on the Solana blockchain, allow
 ## API Endpoints
 
 - `POST /api/create-bounty`: Create a new bounty.
+- `POST /api/approve-bounty`: Approve a Bounty to Pay the User.
 - `POST /api/remove-bounty`: Remove an existing bounty.
+- `GET /api/get-pull-requests`: Fetch all the pull requests for a repo.
 - `GET /api/get-issues`: Fetch all issues associated with bounties.
-- `GET /api/get-merged-pull-requests`: Fetch merged pull requests from a repository.
+- `GET /api/get-bounties`: Get all the issues which have bounties set.
 
 ## Contributing
 
@@ -102,6 +104,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Your Name - [sajjan28yadav@example.com](mailto:sajjan28yadav@example.com)
+[@SajjanYadav](mailto:sajjan28yadav@gmail.com)
 
-Project Link: [https://github.com/SajjanYadav/github-bounty-dispenser](Github Bounty Dispenser)
+Project Link: [Github Bounty Dispenser](https://github.com/SajjanYadav/github-bounty-dispenser)
