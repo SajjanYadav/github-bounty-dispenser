@@ -90,9 +90,6 @@ Contributions are welcome! Please follow these steps:
 5. Push to the branch (`git push origin feature-branch`).
 6. Open a pull request.
 
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Acknowledgements
 
